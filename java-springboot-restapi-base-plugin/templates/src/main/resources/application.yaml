@@ -19,6 +19,8 @@ server:
 # Spring Application
 ##
 spring:
+    application:
+        name: {{project_artifact_id_formatted}}
     output:
         ansi:
             enabled: ALWAYS

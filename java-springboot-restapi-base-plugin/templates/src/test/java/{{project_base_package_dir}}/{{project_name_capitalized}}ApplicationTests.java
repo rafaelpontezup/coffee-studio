@@ -26,6 +26,11 @@ class {{project_name_capitalized}}ApplicationTests {
         assertEquals("always", environment.getProperty("server.error.include-binding-errors"));
         assertEquals("on_param", environment.getProperty("server.error.include-stacktrace"));
         assertEquals("false", environment.getProperty("server.error.include-exception"));
+        // spring config
+        assertEquals("{{project_artifact_id_formatted}}", environment.getProperty("spring.application.name"));
+        assertEquals("ALWAYS", environment.getProperty("spring.output.ansi.enabled"));
+        assertEquals("false", environment.getProperty("spring.web.resources.add-mappings"));
+        assertEquals("true", environment.getProperty("spring.mvc.throw-exception-if-no-handler-found"));
         // actuator config
         assertEquals("*", environment.getProperty("management.endpoints.jmx.exposure.include"));
         assertEquals("health", environment.getProperty("management.endpoints.web.exposure.include"));
