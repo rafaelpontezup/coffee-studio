@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -14,32 +15,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class {{project_name_capitalized}}ApplicationTests {
 
     @Autowired
-    private Environment environment;
+    private Environment env;
 
     @Test
     @DisplayName("validate Spring Boot Base plugin configuration properties")
     void validateBasePluginConfig() {
-        // server config
-        assertEquals("8080", environment.getProperty("server.port"));
-        assertEquals("/", environment.getProperty("server.servlet.context-path"));
-        assertEquals("always", environment.getProperty("server.error.include-message"));
-        assertEquals("always", environment.getProperty("server.error.include-binding-errors"));
-        assertEquals("on_param", environment.getProperty("server.error.include-stacktrace"));
-        assertEquals("false", environment.getProperty("server.error.include-exception"));
-        // spring config
-        assertEquals("{{project_artifact_id_formatted}}", environment.getProperty("spring.application.name"));
-        assertEquals("ALWAYS", environment.getProperty("spring.output.ansi.enabled"));
-        assertEquals("false", environment.getProperty("spring.web.resources.add-mappings"));
-        assertEquals("true", environment.getProperty("spring.mvc.throw-exception-if-no-handler-found"));
-        // actuator config
-        assertEquals("*", environment.getProperty("management.endpoints.jmx.exposure.include"));
-        assertEquals("health", environment.getProperty("management.endpoints.web.exposure.include"));
-        assertEquals("always", environment.getProperty("management.endpoint.health.show-details"));
-        assertEquals("always", environment.getProperty("management.endpoint.health.show-components"));
-        assertEquals("true", environment.getProperty("management.endpoint.health.probes.enabled"));
-        assertEquals("true", environment.getProperty("management.endpoint.health.probes.add-additional-paths"));
-        // jackson config
-        assertEquals("true", environment.getProperty("spring.jackson.serialization.indent_output"));
+        assertAll("server config",
+                () -> assertEquals("8080", env.getProperty("server.port"), "server.port"),
+                () -> assertEquals("/", env.getProperty("server.servlet.context-path"), "server.servlet.context-path"),
+                () -> assertEquals("always", env.getProperty("server.error.include-message"), "server.error.include-message"),
+                () -> assertEquals("always", env.getProperty("server.error.include-binding-errors"), "server.error.include-binding-errors"),
+                () -> assertEquals("on_param", env.getProperty("server.error.include-stacktrace"), "server.error.include-stacktrace"),
+                () -> assertEquals("false", env.getProperty("server.error.include-exception"), "server.error.include-exception")
+        );
+        assertAll("spring config",
+                () -> assertEquals("{{project_artifact_id_formatted}}", env.getProperty("spring.application.name"), "spring.application.name"),
+                () -> assertEquals("ALWAYS", env.getProperty("spring.output.ansi.enabled"), "spring.output.ansi.enabled"),
+                () -> assertEquals("false", env.getProperty("spring.web.resources.add-mappings"), "spring.web.resources.add-mappings"),
+                () -> assertEquals("true", env.getProperty("spring.mvc.throw-exception-if-no-handler-found"), "spring.mvc.throw-exception-if-no-handler-found")
+        );
+        assertAll("actuator config",
+                () -> assertEquals("*", env.getProperty("management.endpoints.jmx.exposure.include"), "management.endpoints.jmx.exposure.include"),
+                () -> assertEquals("health", env.getProperty("management.endpoints.web.exposure.include"), "management.endpoints.web.exposure.include"),
+                () -> assertEquals("always", env.getProperty("management.endpoint.health.show-details"), "management.endpoint.health.show-details"),
+                () -> assertEquals("always", env.getProperty("management.endpoint.health.show-components"), "magement.endpoint.health.show-components"),
+                () -> assertEquals("true", env.getProperty("management.endpoint.health.probes.enabled"), "management.endpoint.health.probes.enabled"),
+                () -> assertEquals("true", env.getProperty("management.endpoint.health.probes.add-additional-paths"), "management.endpoint.health.probes.add-additional-paths")
+        );
+        assertAll("actuator config",
+                () -> assertEquals("true", env.getProperty("spring.jackson.serialization.indent_output"), "spring.jackson.serialization.indent_output")
+        );
     }
-
 }
