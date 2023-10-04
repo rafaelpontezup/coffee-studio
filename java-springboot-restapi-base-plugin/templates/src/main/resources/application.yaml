@@ -1,19 +1,22 @@
 ##
 # Server
-# https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.server
-# https://github.com/spring-projects/spring-restdocs/issues/710
-# https://www.baeldung.com/exception-handling-for-rest-with-spring#spring-boot
-# https://reflectoring.io/spring-boot-exception-handling/
 ##
 server:
+    port: 8080
+    servlet:
+        context-path: /
+    ##
+    # Error handling
+    # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.server
+    # https://github.com/spring-projects/spring-restdocs/issues/710
+    # https://www.baeldung.com/exception-handling-for-rest-with-spring#spring-boot
+    # https://reflectoring.io/spring-boot-exception-handling/
+    ##
     error:
         include-message: always
         include-binding-errors: always
         include-stacktrace: on_param
         include-exception: false
-    port: 8080
-    servlet:
-        context-path: /
 
 ##
 # Spring Application
