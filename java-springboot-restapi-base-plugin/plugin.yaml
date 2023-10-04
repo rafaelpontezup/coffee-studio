@@ -57,9 +57,22 @@ spec:
       required: true
       help: The Maven version property.
   computed-inputs:
-    "project_base_package": "{{project_group_id}}.{{project_artifact_id | regex_replace('[^0-9a-zA-Z_]', '')}}"
-    "project_folder": "{{project_base_package | group_id_folder}}"
-    "project_name_capitalized": "{{project_name | to_camel}}"
+    project_artifact_id_formatted: "{{project_artifact_id | lower | to_kebab}}"
+    project_artifact_id_sanitized: "{{project_artifact_id_formatted | regex_replace('[^0-9a-zA-Z_]', '')}}"
+    project_base_package: "{{project_group_id}}.{{project_artifact_id_sanitized}}"
+    project_base_package_dir: "{{project_base_package | group_id_folder}}"
+    project_name_capitalized: "{{project_name | to_camel}}"
+  global-computed-inputs:
+    global_cs_project_name: "{{project_name}}"
+    global_cs_project_artifact_id: "{{project_artifact_id_formatted}}"
+    global_cs_project_artifact_id_sanitized: "{{project_artifact_id_sanitized}}"
+    global_cs_project_java_version: "17"
+    global_cs_project_springboot_version: "{{project_springboot_version}}"
+    global_cs_project_base_package: "{{project_base_package}}"
+    global_cs_project_base_package_dir: "{{project_base_package_dir}}"
+    global_cs_application_java_classname: "{{project_name_capitalized}}Application.java"
+    global_cs_application_java_classpath: "{{global_cs_project_base_package}}.{{global_cs_application_java_classname}}"
+    global_cs_application_java_classpath_dir: "{{global_cs_project_base_package_dir}}/{{global_cs_application_java_classname}}"
   hooks:
     - type: run
       trigger: after-render

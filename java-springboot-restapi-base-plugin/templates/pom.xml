@@ -6,18 +6,18 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>{{inputs.project_springboot_version}}</version>
+		<version>{{project_springboot_version}}</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>{{inputs.project_group_id}}</groupId>
-	<artifactId>{{inputs.project_artifact_id}}</artifactId>
-	<version>{{inputs.project_version}}</version>
-	<name>{{inputs.project_name}}</name>
-	<description>{{inputs.project_description}}</description>
+	<groupId>{{project_group_id}}</groupId>
+	<artifactId>{{project_artifact_id_formatted}}</artifactId>
+	<version>{{project_version}}</version>
+	<name>{{project_name}}</name>
+	<description>{{project_description}}</description>
 	
 	<properties>
-		<java.version>17</java.version>
+		<java.version>{{global_cs_project_java_version}}</java.version>
 	</properties>
 
 	<dependencies>
