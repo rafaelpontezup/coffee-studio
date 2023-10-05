@@ -17,8 +17,14 @@ class {{project_name_capitalized}}ApplicationTests {
     @Autowired
     private Environment env;
 
+    /**
+     * Coffee Studio's <b>java-springboot-restapi-base-plugin</b> configuration:<br/><br/>
+     *
+     * That's a simple way to guarantee that essential configuration properties set by this plugin are correctly defined
+     * as expected in both {@code application.yaml} and {@code application-test.yaml} files.
+     */
     @Test
-    @DisplayName("validate Spring Boot Base plugin configuration properties")
+    @DisplayName("validate 'java-springboot-restapi-base-plugin' configuration properties")
     void validateBasePluginConfig() {
         assertAll("server config",
                 () -> assertEquals("8080", env.getProperty("server.port"), "server.port"),
