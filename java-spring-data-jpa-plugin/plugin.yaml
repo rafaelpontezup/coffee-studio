@@ -2,7 +2,7 @@ schema-version: v2
 kind: plugin
 metadata:
   name: java-spring-data-jpa-plugin
-  display-name: java-spring-data-jpa-plugin
+  display-name: Java and Spring Data JPA plugin
   description: Plugin to enable and configure Spring Data JPA in Spring Boot Java applications
   version: 1.0.0
   picture: plugin.png
@@ -27,12 +27,12 @@ spec:
         - H2
         - PostgreSQL
         - MySQL
-      help: If you don't have an infra for your database, you can use the H2 since it's an in-memory relational database.
+      help: If you don't have an infra for your database yet, you can use the H2 since it's an in-memory relational database.
   computed-inputs:
     database_name_formatted: "{{database_name | lower}}"
-    # Does not work anymore. It seems like the inputs created at the before-input hook are not accessible via Jinja's EL.
-    # path_main_code_directory: "{{path_main_code_directory | group_id_folder}}"
-    # path_test_code_directory: "{{path_test_code_directory | group_id_folder}}"
+    project_base_package: "{{global_cs_project_base_package}}"
+    src_main_base_package_dir: "src/main/java/{{global_cs_project_base_package_dir}}"
+    src_test_base_package_dir: "src/test/java/{{global_cs_project_base_package_dir}}"
     
   hooks:
     ##
@@ -92,12 +92,6 @@ spec:
         variable: database_name_formatted
         operator: ==
         value: mysql
-    ##
-    # Create directory samples code
-    ##
-    - type: run-script
-      trigger: before-input
-      script: scripts/open-pom.py
     ##
     # Create samples code
     ##

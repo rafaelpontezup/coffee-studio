@@ -70,9 +70,12 @@ spec:
     global_cs_project_springboot_version: "{{project_springboot_version}}"
     global_cs_project_base_package: "{{project_base_package}}"
     global_cs_project_base_package_dir: "{{project_base_package_dir}}"
-    global_cs_application_java_classname: "{{project_name_capitalized}}Application.java"
-    global_cs_application_java_classpath: "{{global_cs_project_base_package}}.{{global_cs_application_java_classname}}"
-    global_cs_application_java_classpath_dir: "{{global_cs_project_base_package_dir}}/{{global_cs_application_java_classname}}"
+    global_cs_application_main_java_classname: "{{project_name_capitalized}}Application.java"
+    global_cs_application_main_java_classpath: "{{global_cs_project_base_package}}.{{global_cs_application_main_java_classname}}"
+    global_cs_application_main_java_classpath_dir: "{{global_cs_project_base_package_dir}}/{{global_cs_application_main_java_classname}}"
+    global_cs_application_test_java_classname: "{{project_name_capitalized}}ApplicationTests.java"
+    global_cs_application_test_java_classpath: "{{global_cs_project_base_package}}.{{global_cs_application_test_java_classname}}"
+    global_cs_application_test_java_classpath_dir: "{{global_cs_project_base_package_dir}}/{{global_cs_application_test_java_classname}}"
   hooks:
     - type: run
       trigger: after-render

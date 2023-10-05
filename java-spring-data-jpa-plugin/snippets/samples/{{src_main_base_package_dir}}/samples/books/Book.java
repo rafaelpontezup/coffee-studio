@@ -1,4 +1,4 @@
-package {{package}}.samples.books;
+package {{project_base_package}}.samples.books;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

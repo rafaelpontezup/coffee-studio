@@ -1,4 +1,4 @@
-package {{package}}.samples.books;
+package {{project_base_package}}.samples.books;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +16,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.InstanceOfAssertFactories.iterable;
 import static org.assertj.core.groups.Tuple.tuple;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -33,13 +34,17 @@ class BookRepositoryTest {
     @DisplayName("must save a book")
     void t1() {
         // scenario
-        Book book = new Book("9788550800653", "Domain Drive Design", "DDD");
+        Book book = new Book("9788550800653", "Domain-Driven Design", "DDD - The blue book");
 
         // action
         repository.save(book);
 
         // validation
-        assertEquals(1, repository.findAll().size());
+        assertThat(repository.findAll())
+                .hasSize(1)
+                .usingRecursiveFieldByFieldElementComparator()
+                .containsExactly(book)
+                ;
     }
 
     @Test
@@ -66,6 +71,8 @@ class BookRepositoryTest {
                         tuple("description", "must not be blank")
                 )
         ;
+        // Tip: Try always to verify the side effects
+        assertEquals(0, repository.count());
     }
 
     @Test
@@ -83,6 +90,8 @@ class BookRepositoryTest {
             Book cleanCode = new Book(isbn, "Clean Code", "Learn how to write clean code with Uncle Bob");
             repository.save(cleanCode);
         });
+        // Tip: Try always to verify the side effects
+        assertEquals(1, repository.count());
     }
 
     @Test
@@ -97,8 +106,11 @@ class BookRepositoryTest {
         Optional<Book> optionalBook = repository.findByIsbn(isbn);
 
         // validation
-        assertTrue(optionalBook.isPresent());
-        assertEquals(book, optionalBook.get());
+        assertThat(optionalBook)
+                .isPresent().get()
+                .usingRecursiveComparison()
+                .isEqualTo(book)
+                ;
     }
 
     @Test
@@ -113,7 +125,7 @@ class BookRepositoryTest {
         Optional<Book> optionalBook = repository.findByIsbn(notExistingIsbn);
 
         // validation
-        assertTrue(optionalBook.isEmpty());
+        assertThat(optionalBook).isEmpty();
     }
 
 }
