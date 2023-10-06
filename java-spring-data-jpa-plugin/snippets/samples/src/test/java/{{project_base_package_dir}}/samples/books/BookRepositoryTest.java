@@ -1,12 +1,11 @@
 package {{project_base_package}}.samples.books;
 
+import base.SpringDataJpaIntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.TransactionSystemException;
 
 import javax.validation.ConstraintViolation;
@@ -19,9 +18,8 @@ import static org.assertj.core.groups.Tuple.tuple;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
-@ActiveProfiles("test")
-class BookRepositoryTest {
+class BookRepositoryTest extends SpringDataJpaIntegrationTest {
+
     @Autowired
     private BookRepository repository;
 
@@ -30,8 +28,31 @@ class BookRepositoryTest {
         repository.deleteAll();
     }
 
+    /**
+     * (!!!) Example of how to use {@code EntityManager} with {@code doInTransaction()} methods
+     */
     @Test
-    @DisplayName("must save a book")
+    @DisplayName("should find a book by ID")
+    void t0() {
+        // scenario
+        Book book = new Book("9788550800653", "Domain-Driven Design", "DDD - The blue book");
+        Long id = doInTransaction(em -> {
+            em.persist(book);
+            return book.getId();
+        });
+
+        // action
+        Optional<Book> found = repository.findById(id);
+
+        // validation
+        assertThat(found)
+                .isPresent().get()
+                .usingRecursiveComparison()
+                .isEqualTo(book);
+    }
+
+    @Test
+    @DisplayName("should save a book")
     void t1() {
         // scenario
         Book book = new Book("9788550800653", "Domain-Driven Design", "DDD - The blue book");

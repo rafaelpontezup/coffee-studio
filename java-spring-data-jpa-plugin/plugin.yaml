@@ -31,8 +31,10 @@ spec:
   computed-inputs:
     database_name_formatted: "{{database_name | lower}}"
     project_base_package: "{{global_cs_project_base_package}}"
-    src_main_base_package_dir: "src/main/java/{{global_cs_project_base_package_dir}}"
-    src_test_base_package_dir: "src/test/java/{{global_cs_project_base_package_dir}}"
+    project_base_package_dir: "{{global_cs_project_base_package_dir}}"
+    src_main_base_package_dir: "src/main/java/{{project_base_package_dir}}"
+    src_test_base_package_dir: "src/test/java/{{project_base_package_dir}}"
+    src_test_application_test_java_classpath_dir: "src/test/java/{{global_cs_application_test_java_classpath_dir}}"
     
   hooks:
     ##
@@ -92,6 +94,19 @@ spec:
         variable: database_name_formatted
         operator: ==
         value: mysql
+    ##
+    # Edit {AppName}ApplicationTests.java
+    ##
+    - type: edit
+      path: "{{src_test_application_test_java_classpath_dir}}"
+      trigger: after-render
+      changes:
+        - search:
+            string: "private void _assertPropertyEquals("
+            insert-before:
+              snippet: snippets/snippet-application-test-class.java.jinja
+              when:
+                not-exists: "void validateSpringDataJpaPluginConfig()"
     ##
     # Create samples code
     ##
