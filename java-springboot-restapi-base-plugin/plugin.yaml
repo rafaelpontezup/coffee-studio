@@ -4,7 +4,7 @@ metadata:
   name: java-springboot-restapi-base-plugin
   display-name: Java and Spring Boot REST API Base plugin
   description: Base plugin for bulding REST API applications with Java and Spring Boot
-  version: 1.0.0
+  version: 1.1.0
   picture: plugin-base.png
 spec:
   type: app

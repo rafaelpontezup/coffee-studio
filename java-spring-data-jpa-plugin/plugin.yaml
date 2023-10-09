@@ -4,7 +4,7 @@ metadata:
   name: java-spring-data-jpa-plugin
   display-name: Java and Spring Data JPA plugin
   description: Plugin to enable and configure Spring Data JPA in Spring Boot Java applications
-  version: 1.0.0
+  version: 1.1.0
   picture: plugin.png
 spec:
   type: app
