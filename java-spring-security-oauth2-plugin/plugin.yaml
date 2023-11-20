@@ -26,6 +26,7 @@ spec:
   computed-inputs:
     project_base_package: "{{global_cs_project_base_package}}"
     project_base_package_dir: "{{global_cs_project_base_package_dir}}"
+    src_test_application_test_java_classpath_dir: "src/test/java/{{global_cs_application_test_java_classpath_dir}}"
 
   hooks:
     ##
@@ -60,3 +61,16 @@ spec:
     - type: render-templates
       trigger: after-render
       path: snippets/docker-keycloak
+    ##
+    # Edit {AppName}ApplicationTests.java
+    ##
+    - type: edit
+      path: "{{src_test_application_test_java_classpath_dir}}"
+      trigger: after-render
+      changes:
+        - search:
+            string: "private void _assertPropertyEquals("
+            insert-before:
+              snippet: snippets/snippet-application-test-class.java.jinja
+              when:
+                not-exists: "void validateSpringSecurityOAuth2ResourceServerPluginConfig()"
