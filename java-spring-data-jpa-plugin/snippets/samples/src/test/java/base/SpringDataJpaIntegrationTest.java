@@ -9,11 +9,11 @@ import java.util.function.Function;
 
 /**
  * We favor using {@code @SpringBootTest} over {@code @DataJpaTest} to test repositories and services. We understand
- * that starting the full Spring context instead is closer to production, improves reliability of tests, minimizes
- * cognitive load, and is faster when running the all test suit. <br/><br/>
+ * that starting the full Spring context instead is closer to production, improves the reliability of tests, minimizes
+ * cognitive load, and is faster when running the whole test suite. <br/><br/>
  *
- * But if you still prefer to work with the {@code @DataJpaTest} slice, we recommend using this base class configured
- * by us:
+ * But if you still prefer to work with the {@code @DataJpaTest} slice, we recommend using this base class also
+ * configured by us:
  * https://gist.github.com/rponte/385838088f64ab8004ba7d15de80ca34#file-_springdatajpaintegrationtest-java-L26
  */
 public abstract class SpringDataJpaIntegrationTest extends SpringBootIntegrationTest {
