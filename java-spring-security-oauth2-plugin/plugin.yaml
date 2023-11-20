@@ -2,7 +2,7 @@ schema-version: v2
 kind: plugin
 metadata:
   name: java-spring-security-oauth2-plugin
-  display-name: java-spring-security-oauth2-plugin
+  display-name: java-spring-security-oauth2-resourceserver-plugin
   description: Plugin to enable and configure Spring Security OAuth2 Resource Server in Java Spring Boot applications
   version: 0.0.1
   picture: plugin.png
