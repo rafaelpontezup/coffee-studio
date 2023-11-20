@@ -37,7 +37,7 @@ class NewBookControllerTest {
         // scenario
         NewBookRequest request = new NewBookRequest(
                 "A valid title about JPA and Hibernate",
-                "A valid description for this amazing about JPA and Hibernate",
+                "A valid description for this amazing book about JPA and Hibernate",
                 "978-0-4703-2225-3",
                 LocalDate.now().minusYears(1)
         );
@@ -56,12 +56,12 @@ class NewBookControllerTest {
     }
 
     @Test
-    @DisplayName("should not create a new book when token is not sent")
+    @DisplayName("should not create a new book when the token is not sent")
     public void t2() throws Exception {
         // scenario
         NewBookRequest request = new NewBookRequest(
                 "A valid title about Java",
-                "A valid description for this amazing about Java",
+                "A valid description for this amazing book about Java",
                 "978-0-4703-2225-3",
                 LocalDate.now().minusYears(2)
         );
@@ -76,12 +76,12 @@ class NewBookControllerTest {
     }
 
     @Test
-    @DisplayName("should not create a new book when token has not the properly scope")
+    @DisplayName("should not create a new book when the token does not have the proper scope")
     public void t3() throws Exception {
         // scenario
         NewBookRequest request = new NewBookRequest(
                 "A valid title about Spring Boot",
-                "A valid description for this amazing about Spring Boot",
+                "A valid description for this amazing book about Spring Boot",
                 "978-0-4703-2225-3",
                 LocalDate.now().minusYears(3)
         );
