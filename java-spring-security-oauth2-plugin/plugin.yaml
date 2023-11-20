@@ -9,7 +9,10 @@ metadata:
 spec:
   type: app
   compatibility:
-    - python
+    - maven
+    - application.yaml
+    - java
+    - spring
   about: docs/about.md
   implementation: docs/implementation.md
   release-notes: docs/release-notes-0.0.1.md
@@ -19,23 +22,41 @@ spec:
   technologies: # Ref: https://docs.stackspot.com/create-use/create-content/yaml-files/plugin-yaml/#technologies-1
     - Api
   stk-projects-only: false
-  inputs:
-    - label: Type name of your resource
-      name: resource
-      type: text
-      required: true
-      default: Client
-      pattern: '([A-Z][a-z]+)+'
-      help: 'Inform your resource name (e.g.: Client)'
-    - label: Choose http method of new endpoint
-      name: method
-      type: text
-      items:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-      default: GET
-      required: true
-      help: 'Inform the method of the endpoint (e.g.: post or delete)'
+  
+  computed-inputs:
+    project_base_package: "{{global_cs_project_base_package}}"
+    project_base_package_dir: "{{global_cs_project_base_package_dir}}"
+
+  hooks:
+    ##
+    # Edit application.yaml
+    ##
+    - type: edit
+      path: src/main/resources/application.yaml
+      trigger: after-render    
+      changes:
+        - search:
+            string: "spring:"
+            insert-after:
+              snippet: snippets/snippet-application.yaml
+            when:
+              not-exists: "resourceserver:"
+    ##
+    # Edit pom.xml
+    ##
+    - type: edit
+      path: pom.xml
+      trigger: after-render    
+      changes:
+        - search:
+            string: "</dependencies>"
+            insert-before:
+              snippet: snippets/snippet-pom.xml
+            when:
+              not-exists-snippet: snippets/snippet-pom.xml
+    ##
+    # Create or edit docker-compose.yaml
+    ##
+    - type: render-templates
+      trigger: after-render
+      path: snippets/docker-keycloak
