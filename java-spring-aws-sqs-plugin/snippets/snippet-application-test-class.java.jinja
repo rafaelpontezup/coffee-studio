@@ -1,0 +1,28 @@
+
+    /**
+     * Coffee Studio's <b>java-spring-aws-sqs-plugin</b> configuration:<br/><br/>
+     *
+     * That's a simple way to guarantee that essential configuration properties set by this plugin are correctly defined
+     * as expected in both {@code application.yaml} and {@code application-test.yaml} files.
+     */
+    @Test
+    @DisplayName("validate 'java-spring-aws-sqs-plugin' configuration properties")
+    void validateSpringAwsSqsPluginConfig() {
+        assertAll("spring aws sqs config",
+                () -> _assertPropertyEquals("false", "cloud.aws.stack.auto"),
+                () -> _assertPropertyEquals("false", "cloud.aws.stack.enabled"),
+                () -> _assertPropertyEquals("localstackAccessKeyId", "cloud.aws.credentials.access-key"),
+                () -> _assertPropertyEquals("localstackSecretAccessKey", "cloud.aws.credentials.secret-key"),
+                () -> _assertPropertyEquals("sa-east-1", "cloud.aws.region.static"),
+                () -> _assertPropertyEquals("http://localhost:4566", "cloud.aws.sqs.endpoint"),
+                () -> _assertPropertyEquals("false", "cloud.aws.sqs.listener.fail-on-missing-queue"),
+                () -> _assertPropertyEquals("NO_REDRIVE", "cloud.aws.sqs.listener.default-deletion-policy"),
+                () -> _assertPropertyEquals("10", "cloud.aws.sqs.listener.max-number-of-messages"),
+                () -> _assertPropertyEquals("30", "cloud.aws.sqs.listener.visibility-timeout"),
+                () -> _assertPropertyEquals("20", "cloud.aws.sqs.listener.wait-timeout"),
+                () -> _assertPropertyEquals("10000", "cloud.aws.sqs.listener.back-off-time"),
+                () -> _assertPropertyEquals("false", "cloud.aws.sqs.listener.auto-startup"),
+                () -> _assertPropertyEquals("500", "cloud.aws.sqs.listener.queue-stop-timeout")
+        );
+    }
+

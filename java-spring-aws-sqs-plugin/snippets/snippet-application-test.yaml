@@ -7,4 +7,4 @@ cloud:
         sqs:
             listener:
                 auto-startup: false
-                queue-stop-timeout: 500
+                queue-stop-timeout: 500  # 500ms
