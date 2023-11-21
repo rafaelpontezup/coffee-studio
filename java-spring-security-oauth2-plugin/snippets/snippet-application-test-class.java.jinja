@@ -8,7 +8,7 @@
     @Test
     @DisplayName("validate 'java-spring-security-oauth2-plugin' configuration properties")
     void validateSpringSecurityOAuth2ResourceServerPluginConfig() {
-        assertAll("spring jpa config",
+        assertAll("spring security config",
                 () -> _assertPropertyEquals("http://localhost:18080/realms/my-app-realm", "spring.security.oauth2.resourceserver.jwt.issuer-uri"),
                 () -> _assertPropertyEquals("http://localhost:18080/realms/my-app-realm/protocol/openid-connect/certs", "spring.security.oauth2.resourceserver.jwt.jwk-set-uri")
         );
