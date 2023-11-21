@@ -1,6 +1,6 @@
 package {{project_base_package}}.samples.aws.sqs;
 
-import {{project_base_package}}.samples.aws.sqs.base.SqsIntegrationTest;
+import base.aws.sqs.SqsIntegrationTest;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.model.GetQueueAttributesResult;
 import io.awspring.cloud.messaging.core.QueueMessagingTemplate;

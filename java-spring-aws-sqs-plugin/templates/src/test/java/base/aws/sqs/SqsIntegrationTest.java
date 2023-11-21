@@ -1,4 +1,4 @@
-package {{project_base_package}}.samples.aws.sqs.base;
+package base.aws.sqs;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -23,7 +23,7 @@ import static org.testcontainers.containers.localstack.LocalStackContainer.Servi
 @Testcontainers @DirtiesContext
 public abstract class SqsIntegrationTest {
 
-    private static DockerImageName LOCALSTACK_IMAGE = DockerImageName.parse("localstack/localstack");
+    private static DockerImageName LOCALSTACK_IMAGE = DockerImageName.parse("localstack/localstack:{{global_cs_project_localstack_version}}");
 
     @Container
     public static LocalStackContainer LOCALSTACK_CONTAINER = new LocalStackContainer(LOCALSTACK_IMAGE)
