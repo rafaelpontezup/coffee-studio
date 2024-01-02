@@ -1,4 +1,4 @@
-package {{project_base_package}}.samples.aws.sns.base;
+package base;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -24,7 +24,7 @@ import static org.testcontainers.containers.localstack.LocalStackContainer.Servi
 @Testcontainers @DirtiesContext
 public abstract class SnsIntegrationTest {
 
-    private static DockerImageName LOCALSTACK_IMAGE = DockerImageName.parse("localstack/localstack:1.3");
+    private static DockerImageName LOCALSTACK_IMAGE = DockerImageName.parse("localstack/localstack:{{global_cs_project_localstack_version}}");
 
     @Container
     public static LocalStackContainer LOCALSTACK_CONTAINER = new LocalStackContainer(LOCALSTACK_IMAGE)

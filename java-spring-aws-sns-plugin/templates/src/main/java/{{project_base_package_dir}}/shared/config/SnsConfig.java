@@ -1,4 +1,4 @@
-package {{project_base_package}}.samples.aws.sns;
+package {{project_base_package}}.shared.config;
 
 import com.amazonaws.services.sns.AmazonSNS;
 import com.fasterxml.jackson.databind.ObjectMapper;
