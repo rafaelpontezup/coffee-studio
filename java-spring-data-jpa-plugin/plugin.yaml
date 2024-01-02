@@ -9,16 +9,20 @@ metadata:
 spec:
   type: app
   compatibility:
-    - maven
-    - application.yaml
-    - java
-    - spring
+    - python
   about: docs/about.md
   implementation: docs/implementation.md
   release-notes: docs/release-notes-0.0.1.md
   requirements: docs/requirements.md
   technologies: # Ref: https://docs.stackspot.com/content-creator/studio/yaml-files/plugin-yaml/#technologies
     - Api
+    - Java
+    - Spring Boot
+    - JUnit
+    - Maven
+    - Docker
+    - PostgreSQL
+    - MySQL
   inputs:
     - label: Choose one database (RDBMS)
       name: database_name

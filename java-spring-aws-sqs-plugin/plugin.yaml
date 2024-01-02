@@ -9,10 +9,7 @@ metadata:
 spec:
   type: app
   compatibility:
-    - maven
-    - application.yaml
-    - java
-    - spring
+    - python
   about: docs/about.md
   implementation: docs/implementation.md
   release-notes: docs/release-notes-0.0.1.md
@@ -21,6 +18,12 @@ spec:
   repository: git@github.com:rafaelpontezup/coffee-studio.git
   technologies: # Ref: https://docs.stackspot.com/create-use/create-content/yaml-files/plugin-yaml/#technologies-1
     - Api
+    - Java
+    - Spring Boot
+    - JUnit
+    - Maven
+    - Docker
+    - AWS SQS
   stk-projects-only: false
   
   computed-inputs:
