@@ -9,7 +9,10 @@ metadata:
 spec:
   type: app
   compatibility:
-    - python
+    - maven
+    - application.yaml
+    - java
+    - spring
   docs:
     pt-br: docs/pt-br/docs.md
     en-us: docs/en-us/docs.md
@@ -18,23 +21,71 @@ spec:
   technologies: # Ref: https://docs.stackspot.com/create-use/create-content/yaml-files/plugin-yaml/#technologies-1
     - Api
   stk-projects-only: false
-  inputs:
-    - label: Type name of your resource
-      name: resource
-      type: text
-      required: true
-      default: Client
-      pattern: '([A-Z][a-z]+)+'
-      help: 'Inform your resource name (e.g.: Client)'
-    - label: Choose http method of new endpoint
-      name: method
-      type: text
-      items:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-      default: GET
-      required: true
-      help: 'Inform the method of the endpoint (e.g.: post or delete)'
+
+  computed-inputs:
+    project_base_package: "{{global_cs_project_base_package}}"
+    project_base_package_dir: "{{global_cs_project_base_package_dir}}"
+    src_test_application_test_java_classpath_dir: "src/test/java/{{global_cs_application_test_java_classpath_dir}}"
+  global-computed-inputs:
+    global_cs_project_localstack_version: "1.3"
+    global_cs_project_springcloud_aws_version: "2.4.2"
+
+  hooks:
+    ##
+    # Edit pom.xml
+    ##
+    - type: edit
+      path: pom.xml
+      trigger: after-render    
+      changes:
+        - search:
+            string: "</dependencies>"
+            insert-before:
+              snippet: snippets/snippet-pom.xml
+            when:
+              not-exists-snippet: snippets/snippet-pom.xml
+        - search:
+            string: "</dependencies>"
+            insert-after:
+              snippet: snippets/snippet-pom-dependencyManagement.xml
+            when:
+              not-exists-snippet: snippets/snippet-pom-dependencyManagement.xml
+        - search:
+            string: "</dependencies>"
+            insert-before:
+              snippet: snippets/snippet-pom-dependency-starter-validation.xml
+            when:
+              not-exists: "spring-boot-starter-validation"
+
+    ##
+    # Edit application.yaml
+    ##
+    - type: edit
+      path: src/main/resources/application.yaml
+      trigger: after-render    
+      changes:
+        - insert:
+            line: -1
+            snippet: snippets/snippet-application.yaml
+            when:
+              not-exists-snippet: snippets/snippet-application.yaml
+
+    ##
+    # Edit application-test.yaml
+    ##
+    - type: edit
+      path: src/test/resources/application-test.yaml
+      trigger: after-render 
+      changes:
+        - insert:
+            line: -1
+            snippet: snippets/snippet-application-test.yaml
+            when:
+              not-exists-snippet: snippets/snippet-application-test.yaml   
+    
+    ##
+    # Create or edit docker-compose.yaml
+    ##
+    - type: render-templates
+      trigger: after-render
+      path: snippets/docker-localstack

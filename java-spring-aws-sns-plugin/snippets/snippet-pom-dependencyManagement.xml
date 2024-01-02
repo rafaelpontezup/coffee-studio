@@ -1,0 +1,15 @@
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- *********************** -->
+            <!-- Spring Cloud AWS Dependencies -->
+            <!-- *********************** -->
+            <dependency>
+                <groupId>io.awspring.cloud</groupId>
+                <artifactId>spring-cloud-aws-dependencies</artifactId>
+                <version>{{global_cs_project_springcloud_aws_version}}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>

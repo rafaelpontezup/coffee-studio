@@ -1,0 +1,14 @@
+
+##
+# Spring Cloud AWS
+##
+cloud:
+    aws:
+        sns:
+            verification: false
+        sqs:
+            endpoint: http://localhost:4566
+
+logging:
+    level:
+        com.amazonaws.services.sqs: debug
